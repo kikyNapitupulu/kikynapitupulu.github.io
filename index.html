@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kiky Napitupulu - Business Analyst</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        line-height: 1.7;
+        color: #1a1a1a;
+        background: #ffffff;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 40px;
+      }
+
+      header {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(20px);
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+      }
+
+      header.scrolled {
+        box-shadow: 0 2px 30px rgba(0, 0, 0, 0.05);
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+      }
+
+      .logo {
+        font-size: 1.4rem;
+        font-weight: 600;
+        letter-spacing: -0.5px;
+        color: #1a1a1a;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 3rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #666;
+        font-weight: 500;
+        font-size: 0.95rem;
+        letter-spacing: 0.3px;
+        transition: color 0.3s ease;
+        position: relative;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #1a1a1a;
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: #1a1a1a;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-top: 80px;
+        background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+      }
+
+      .hero-content {
+        text-align: center;
+        animation: fadeInUp 1s ease;
+        max-width: 800px;
+      }
+
+      .hero-label {
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #999;
+        margin-bottom: 1.5rem;
+        font-weight: 500;
+      }
+
+      .hero h1 {
+        font-size: 4.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        letter-spacing: -2px;
+        color: #1a1a1a;
+        line-height: 1.1;
+      }
+
+      .hero .subtitle {
+        font-size: 1.3rem;
+        color: #666;
+        margin-bottom: 1rem;
+        font-weight: 400;
+      }
+
+      .hero .location {
+        font-size: 1rem;
+        color: #999;
+        margin-bottom: 3rem;
+        font-weight: 400;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 14px 35px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.95rem;
+        letter-spacing: 0.3px;
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+
+      .btn-primary {
+        background: #1a1a1a;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #333;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: #1a1a1a;
+        border: 1.5px solid #e0e0e0;
+      }
+
+      .btn-secondary:hover {
+        border-color: #1a1a1a;
+        background: #fafafa;
+      }
+
+      section {
+        padding: 8rem 2rem;
+      }
+
+      section:nth-child(even) {
+        background: #fafafa;
+      }
+
+      .section-title {
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #999;
+        margin-bottom: 1rem;
+        font-weight: 500;
+      }
+
+      .section-heading {
+        font-size: 2.8rem;
+        margin-bottom: 4rem;
+        color: #1a1a1a;
+        font-weight: 600;
+        letter-spacing: -1px;
+      }
+
+      .about-content {
+        max-width: 750px;
+        margin: 0 auto;
+        font-size: 1.15rem;
+        line-height: 1.9;
+        color: #555;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .skill-card {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 8px;
+        border: 1px solid #e8e8e8;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .skill-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+        border-color: #d0d0d0;
+      }
+
+      .skill-card h3 {
+        color: #1a1a1a;
+        margin-bottom: 1.5rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+        letter-spacing: -0.3px;
+      }
+
+      .skill-card ul {
+        list-style: none;
+      }
+
+      .skill-card li {
+        padding: 0.5rem 0;
+        color: #666;
+        font-size: 0.95rem;
+        position: relative;
+        padding-left: 20px;
+      }
+
+      .skill-card li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: #1a1a1a;
+        font-weight: bold;
+      }
+
+      .experience-timeline {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .timeline-item {
+        background: white;
+        padding: 3rem;
+        margin-bottom: 2rem;
+        border-radius: 8px;
+        border: 1px solid #e8e8e8;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .timeline-item::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 3px;
+        height: 100%;
+        background: #1a1a1a;
+        border-radius: 8px 0 0 8px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .timeline-item:hover::before {
+        opacity: 1;
+      }
+
+      .timeline-item:hover {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+        border-color: #d0d0d0;
+      }
+
+      .timeline-item h3 {
+        color: #1a1a1a;
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        letter-spacing: -0.5px;
+      }
+
+      .timeline-item .company {
+        color: #666;
+        font-weight: 500;
+        font-size: 1.05rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .timeline-item .date {
+        color: #999;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.3px;
+      }
+
+      .timeline-item ul {
+        margin-left: 0;
+        list-style: none;
+      }
+
+      .timeline-item li {
+        margin-bottom: 0.8rem;
+        color: #666;
+        padding-left: 25px;
+        position: relative;
+        font-size: 0.95rem;
+        line-height: 1.7;
+      }
+
+      .timeline-item li::before {
+        content: "→";
+        position: absolute;
+        left: 0;
+        color: #1a1a1a;
+        font-weight: normal;
+      }
+
+      .certifications-grid {
+        max-width: 900px;
+        margin: 0 auto;
+        display: grid;
+        gap: 2rem;
+      }
+
+      .cert-card {
+        background: white;
+        padding: 2.5rem;
+        border-radius: 8px;
+        border: 1px solid #e8e8e8;
+        transition: all 0.3s ease;
+      }
+
+      .cert-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+        border-color: #d0d0d0;
+      }
+
+      .cert-card h3 {
+        color: #1a1a1a;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+
+      .cert-card .issuer {
+        color: #666;
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .cert-card .date {
+        color: #999;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .cert-card ul {
+        list-style: none;
+        margin-left: 0;
+      }
+
+      .cert-card li {
+        padding: 0.4rem 0;
+        padding-left: 20px;
+        position: relative;
+        color: #666;
+        font-size: 0.95rem;
+      }
+
+      .cert-card li::before {
+        content: "•";
+        position: absolute;
+        left: 0;
+        color: #1a1a1a;
+      }
+
+      .contact-content {
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .contact-intro {
+        font-size: 1.15rem;
+        color: #666;
+        margin-bottom: 3rem;
+        line-height: 1.8;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-top: 3rem;
+      }
+
+      .contact-link {
+        background: white;
+        color: #1a1a1a;
+        padding: 1.8rem 2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1.2rem;
+        border: 1px solid #e8e8e8;
+        font-size: 0.95rem;
+      }
+
+      .contact-link:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border-color: #1a1a1a;
+      }
+
+      .contact-icon {
+        font-size: 1.3rem;
+        flex-shrink: 0;
+      }
+
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        text-align: left;
+        flex: 1;
+      }
+
+      .contact-label {
+        font-size: 0.8rem;
+        color: #999;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 500;
+      }
+
+      .contact-value {
+        font-size: 0.95rem;
+        color: #1a1a1a;
+        font-weight: 500;
+      }
+
+      footer {
+        background: #1a1a1a;
+        color: #999;
+        text-align: center;
+        padding: 3rem 2rem;
+        font-size: 0.9rem;
+        letter-spacing: 0.3px;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 20px;
+        }
+
+        .hero h1 {
+          font-size: 3rem;
+        }
+
+        .hero .subtitle {
+          font-size: 1.1rem;
+        }
+
+        .nav-links {
+          gap: 1.5rem;
+          font-size: 0.85rem;
+        }
+
+        .section-heading {
+          font-size: 2rem;
+        }
+
+        section {
+          padding: 5rem 1.5rem;
+        }
+
+        .timeline-item,
+        .cert-card {
+          padding: 2rem;
+        }
+
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header id="header">
+      <nav>
+        <div class="logo"></div>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#certifications">Certifications</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-label">Quality Assurance | Business Analyst</div>
+        <h1>Kiky <br />Napitupulu</h1>
+        <p class="location">Based in Bekasi, Indonesia</p>
+        <div class="cta-buttons">
+          <a href="#contact" class="btn btn-primary">Get In Touch</a>
+          <a
+            href="https://www.linkedin.com/in/kiky-napitupulu/"
+            target="_blank"
+            class="btn btn-secondary"
+            >View LinkedIn</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-title">About</div>
+        <h2 class="section-heading">
+          Turning complex data into clear business value
+        </h2>
+        <div class="about-content">
+          <p>
+            Analytical and detail-oriented Business Analyst with a strong
+            foundation in data validation, system integration, and
+            cross-functional collaboration. Experienced in tracking KPIs,
+            analyzing business performance, and maintaining data accuracy across
+            departments.
+          </p>
+          <br />
+          <p>
+            I specialize in bridging the gap between technical systems and
+            business objectives, ensuring data integrity while supporting
+            strategic decision-making through comprehensive analysis and
+            reporting.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-title">Expertise</div>
+        <h2 class="section-heading">Technical Skills</h2>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h3>Testing & QA</h3>
+            <ul>
+              <li>Manual Testing</li>
+              <li>Test Case Writing</li>
+              <li>Data Validation</li>
+              <li>Functional Testing</li>
+              <li>Quality Assurance</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <h3>Data & Analysis</h3>
+            <ul>
+              <li>SQL</li>
+              <li>Python</li>
+              <li>Excel & Google Sheets</li>
+              <li>Data Analysis</li>
+              <li>KPI Tracking</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <h3>Tools & Systems</h3>
+            <ul>
+              <li>Odoo</li>
+              <li>Trello</li>
+              <li>Jubelio Finance</li>
+              <li>Database Administration</li>
+              <li>System Integration</li>
+            </ul>
+          </div>
+          <div class="skill-card">
+            <h3>Business Skills</h3>
+            <ul>
+              <li>Business Analysis</li>
+              <li>Retail & Leasing Operations</li>
+              <li>Cross-functional Collaboration</li>
+              <li>Performance Analysis</li>
+              <li>Documentation</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-title">Experience</div>
+        <h2 class="section-heading">Professional Journey</h2>
+        <div class="experience-timeline">
+          <div class="timeline-item">
+            <h3>Quality Assurance</h3>
+            <div class="company">PT Solusi Finansialku Indonesia</div>
+            <div class="date">May 2024 – Present</div>
+            <ul>
+              <li>
+                Conduct manual testing for the web-based application “Pinjam
+                Sultan.”
+              </li>
+              <li>
+                Create and maintain UAT checklists and test cases based on
+                system requirements.
+              </li>
+              <li>
+                Collaborate with developers and business teams to ensure quality
+                deliverables.
+              </li>
+              <li>
+                Identify, document, and track bugs throughout the testing cycle.
+              </li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <h3>Business Analyst</h3>
+            <div class="company">PT Mitra Cipta Integrasi</div>
+            <div class="date">May 2023 – Dec 2023</div>
+            <ul>
+              <li>
+                Supported integration between Odoo and Jubelio Finance systems.
+              </li>
+              <li>
+                Conducted invoice reconciliation and data validation across
+                platforms.
+              </li>
+              <li>
+                Coordinated with development and finance teams to ensure
+                synchronization accuracy.
+              </li>
+              <li>
+                Monitored and optimized the data retrieval process for better
+                system performance.
+              </li>
+            </ul>
+          </div>
+
+          <div class="timeline-item">
+            <h3>Business Analyst</h3>
+            <div class="company">PT Mitra Belanja Anda (Lotte Grosir)</div>
+            <div class="date">May 2022 – Apr 2023</div>
+            <ul>
+              <li>
+                Managed data reports from the Leasing department and ensured
+                accuracy in documentation.
+              </li>
+              <li>
+                Created and analyzed KPIs for tenants and leasing performance.
+              </li>
+              <li>
+                Provided business recommendations based on performance trends
+                and data insights.
+              </li>
+              <li>
+                Assisted management in decision-making through data-driven
+                reports.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications">
+      <div class="container">
+        <div class="section-title">Certifications</div>
+        <h2 class="section-heading">Professional Credentials</h2>
+        <div class="certifications-grid">
+          <div class="cert-card">
+            <h3>Certified Business Analyst Professional (CBAP)</h3>
+            <div class="issuer">International Institute of Business Analysis</div>
+            <div class="date">Expected 2025</div>
+            <ul>
+              <li>Advanced certification for professional business analysts</li>
+              <li>Focus on requirement management and business strategy</li>
+            </ul>
+          </div>
+
+          <div class="cert-card">
+            <h3>Manual Software Testing Certification</h3>
+            <div class="issuer">RevoU</div>
+            <div class="date">2024</div>
+            <ul>
+              <li>Learned functional and regression testing methodologies</li>
+              <li>Hands-on test case creation and defect tracking</li>
+            </ul>
+          </div>
+
+          <div class="cert-card">
+            <h3>Google Data Analytics Certificate</h3>
+            <div class="issuer">Coursera</div>
+            <div class="date">2023</div>
+            <ul>
+              <li>Proficient in data cleaning, visualization, and reporting</li>
+              <li>Used SQL, Sheets, and Tableau for analysis</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio">
+      <div class="container">
+        <div class="section-title">Portfolio</div>
+        <h2 class="section-heading">Featured Projects</h2>
+        <div class="skills-grid">
+
+          <a href="https://www.notion.so/3-1-Test-Planning-293a6d0a4d688003ac18f378f6622a7e" target="_blank" class="skill-card">
+            <h3>QA Test Documentation – Pinjam Sultan</h3>
+            <ul>
+              <li>Created test cases and UAT checklist based on PRD</li>
+              <li>Designed risk-based testing strategy for prioritization</li>
+              <li>Documented defects and validation steps in Trello</li>
+            </ul>
+          </a>
+          <a href="https://www.notion.so/link-pinjam-sultan" target="_blank" class="skill-card">
+            <h3>Data Analysis Dashboard – Retail Performance</h3>
+            <ul>
+              <li>Built sales & tenant KPI dashboard using Google Sheets</li>
+              <li>Automated data aggregation from multiple departments</li>
+              <li>Presented insights for monthly management review</li>
+            </ul>
+          </a>
+          <a href="https://www.notion.so/link-pinjam-sultan" target="_blank" class="skill-card">
+            <h3>System Integration Project – Odoo x Jubelio</h3>
+            <ul>
+              <li>Developed automatic invoice generation between systems</li>
+              <li>Improved billing accuracy by 30% through API automation</li>
+              <li>Enhanced data retrieval performance via optimized queries</li>
+            </ul>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-title">Contact</div>
+        <h2 class="section-heading">Let’s Connect</h2>
+        <div class="contact-content">
+          <p class="contact-intro">
+            Whether you’d like to collaborate, discuss potential projects, or
+            just say hello, feel free to reach out!
+          </p>
+          <div class="contact-grid">
+            <a
+              href="mailto:kiky.napitupulu11@gmail.com"
+              class="contact-link"
+              target="_blank"
+            >
+              <div class="contact-icon">📧</div>
+              <div class="contact-info">
+                <div class="contact-label">Email</div>
+                <div class="contact-value">kiky.napitupulu11@gmail.com</div>
+              </div>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/kiky-napitupulu/"
+              class="contact-link"
+              target="_blank"
+            >
+              <div class="contact-icon">💼</div>
+              <div class="contact-info">
+                <div class="contact-label">LinkedIn</div>
+                <div class="contact-value">linkedin.com/in/kiky-napitupulu</div>
+              </div>
+            </a>
+            <a href="https://wa.me/6281234567890" class="contact-link" target="_blank">
+              <div class="contact-icon">💬</div>
+              <div class="contact-info">
+                <div class="contact-label">WhatsApp</div>
+                <div class="contact-value">+62 812 3456 7890</div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 Kiky Napitupulu. All rights reserved.
+    </footer>
+
+    <script>
+      window.addEventListener("scroll", () => {
+        const header = document.getElementById("header");
+        if (window.scrollY > 50) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      });
+    </script>
+  </body>
+</html>
